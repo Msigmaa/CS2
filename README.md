@@ -104,7 +104,16 @@ END
       - Database: Local storage (SQLite or JSON) is configured to store financial and behavioural data.
       - App UI: Created the Login and loading screens in the mobile app.
 - In progress:
-      - 
+      - Live tracking of finances and purchases.
+      - Testing: Running "dead zone" tests to see how the app behaves without Wi-Fi.
+- Issues:
+      - Access is limited.
+      - Battery drain.
+- Upcoming:
+      - Finalize the "Monthly summary" screen and display.
+      - Add automated SMS notifications when load arrives/is available.
+
+--- 
 
 ## Contributors
 Pie, Ma. Alicia Fatima E.  
