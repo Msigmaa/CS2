@@ -91,3 +91,19 @@
 ### Minor
 - Corrected display bug in weekly charts
 - Small refinements in dashboard text
+
+## [V5.0] - 02-12-26 (Major Update)
+### Added
+- Customizable search catalog feature introduced
+- SQL-based catalog system implemented
+- Full CRUD operations (Create, Read, Update, Delete) for catalog management
+- Advanced search, filter, and sorting functionality
+- Configurable catalog fields for flexible data organization
+
+## - [V5.0.01]
+### Minor
+- Fixed bugs related to search query handling
+- Improved database performance and indexing
+- Resolved minor UI inconsistencies in catalog view
+- General bug fixes and stability improvements
+
