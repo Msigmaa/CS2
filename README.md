@@ -87,7 +87,6 @@ END
 - Step 3: Logging In & Starting
        - Make your account (personal identification, secure authentication and financial account credetials).
        - Set up app and start session.
-
 ---
 
 ## Tech Notes
