@@ -58,6 +58,7 @@
 - Auto-sync when online enabled
 ### Minor
 - Better chart animations
+- Charts improved for readability
 - Improved summary screen layout
 - Cleaned up unused code
 
@@ -102,7 +103,7 @@
 
 ## - [V5.0.01]
 ### Minor
-- Fixed bugs related to search query handling
+- Fixed bugs related to search query handling and customization
 - Improved database performance and indexing
 - Resolved minor UI inconsistencies in catalog view
 - General bug fixes and stability improvements
