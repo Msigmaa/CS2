@@ -93,7 +93,7 @@
 - Corrected display bug in weekly charts
 - Small refinements in dashboard text
 
-## [V5.0] - 02-12-26 (Major Update)
+## [V5.0] - 2026-2-12 (Major Update)
 ### Added
 - Customizable search catalog feature introduced
 - SQL-based catalog system implemented
@@ -108,3 +108,7 @@
 - Resolved minor UI inconsistencies in catalog view
 - General bug fixes and stability improvements
 
+## - [V5.0.02] - 2026-2-15 (Minor Patch)
+### Minor
+- Cleaned up ReadME
+- Resolved minor issues with the SQL-based catalog system
