@@ -96,6 +96,16 @@ END
 
 ---
 
+## Current project status
+- Summary:
+      - In developmental phase, everything completed is functional and requires only a few changes.
+- Completed:
+      - Backend setup: server is functional and is capable of processing data.
+      - Database: Local storage (SQLite or JSON) is configured to store financial and behavioural data.
+      - App UI: Created the Login and loading screens in the mobile app.
+- In progress:
+      - 
+
 ## Contributors
 Pie, Ma. Alicia Fatima E.  
 Porio, Jahziel Christy R.  
