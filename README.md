@@ -73,6 +73,20 @@ update_ui_totals()
 END
 
 
+---
+
+## Installation Instructions
+- Step 1: Downloading the app:
+       - Go to the app store on your device.
+       - Search for Load It Up.
+       - Tap: Install.
+- Step 2: Setting Up Your Permissions
+       - Open the app after it finishes installing.
+       - Allow access to financial account data, behavorial and spending data, and third-party sharing and data usage.
+       - When asked for Battery Optimization, select "Allow" (this ensures the app doesn't turn off when your screen is dark).
+- Step 3: Logging In & Starting
+       - Make your account (personal identification, secure authentication and financial account credetials).
+       - Set up app and start session.
 
 ---
 
