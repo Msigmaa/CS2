@@ -1,76 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Money Tracker</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            padding: 40px;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            max-width: 400px;
-            margin: auto;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        input, button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-        }
-        button {
-            cursor: pointer;
-        }
-        .output {
-            margin-top: 15px;
-            white-space: pre-line;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Load It Up – Money Tracker</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f8;
+        padding: 30px;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h1, h2 {
+        text-align: center;
+    }
+
+    input, button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    .log {
+        margin-top: 20px;
+        background: #ecf0f1;
+        padding: 15px;
+        border-radius: 8px;
+        white-space: pre-line;
+    }
+
+    .features {
+        margin-top: 30px;
+    }
+
+    .version {
+        background: #f9f9f9;
+        padding: 15px;
+        border-left: 5px solid #3498db;
+        margin-bottom: 15px;
+        border-radius: 5px;
+    }
+</style>
 </head>
+
 <body>
 
 <div class="container">
-    <h2>Money Tracker 💸</h2>
+    <h1>💸 Load It Up</h1>
+    <p style="text-align:center;">Personal Money Tracker</p>
 
-    <input type="text" id="username" placeholder="Enter your username">
-    <input type="number" id="budget" placeholder="Enter your budget (₱)">
-    <button onclick="startTracker()">Start</button>
+    <!-- CORE FUNCTIONALITY (V1.0 – V2.0) -->
+    <input type="text" id="username" placeholder="Enter username">
+    <input type="number" id="budget" placeholder="Enter monthly budget (₱)">
+    <button onclick="start()">Start Tracking</button>
+    <button onclick="addExpense()">Add Purchase</button>
 
-    <div class="output" id="output"></div>
+    <div class="log" id="log">Waiting for input…</div>
+
+    <!-- FEATURES BASED ON CHANGELOG -->
+    <div class="features">
+        <h2>📌 Feature Updates by Version</h2>
+
+        <div class="version">
+            <strong>V1.0 – Core Setup</strong>
+            <ul>
+                <li>User account setup (username)</li>
+                <li>Monthly budget input</li>
+                <li>Basic spending logic</li>
+            </ul>
+        </div>
+
+        <div class="version">
+            <strong>V2.0 – Transaction Tracking</strong>
+            <ul>
+                <li>Expense logging</li>
+                <li>Remaining balance calculation</li>
+                <li>Input validation (cannot overspend)</li>
+            </ul>
+        </div>
+
+        <div class="version">
+            <strong>V3.0 – Summary & Progress</strong>
+            <ul>
+                <li>Real-time remaining balance display</li>
+                <li>Improved messages and feedback</li>
+            </ul>
+        </div>
+
+        <div class="version">
+            <strong>V4.0 – UI Improvements</strong>
+            <ul>
+                <li>Clean dashboard-style layout</li>
+                <li>Improved readability</li>
+            </ul>
+        </div>
+
+        <div class="version">
+            <strong>V5.0 – System Expansion (Conceptual)</strong>
+            <ul>
+                <li>Scalable structure for database integration</li>
+                <li>Prepared for catalog, filters, and CRUD operations</li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 <script>
 let remaining = 0;
+let user = "";
 
-function startTracker() {
-    const name = document.getElementById("username").value;
+function start() {
+    user = document.getElementById("username").value;
     const budget = parseFloat(document.getElementById("budget").value);
-    const output = document.getElementById("output");
+    const log = document.getElementById("log");
 
-    if (!name || isNaN(budget)) {
-        output.textContent = "Bro fill everything up properly 😭";
+    if (!user || isNaN(budget)) {
+        log.textContent = "Please enter a valid username and budget.";
         return;
     }
 
     remaining = budget;
-    output.textContent =
-        `Welcome, ${name}!\n` +
-        `Let's Set Up Your Maximum Expenditure For The Month!\n\n` +
-        `Thank You For Setting Up Your Account.\n` +
-        `You Currently Have ₱${remaining} Left To Spend!`;
+    log.textContent =
+        `Welcome, ${user}!\n` +
+        `Monthly Budget Set: ₱${budget}\n` +
+        `Remaining Money: ₱${remaining}`;
 }
 
-function addPurchase() {
+function addExpense() {
     if (remaining <= 0) {
-        alert("You cannot spend anymore!!!");
+        document.getElementById("log").textContent +=
+            `\nYou cannot spend anymore!!!`;
         return;
     }
 
-    const spent = parseFloat(prompt("Enter the amount you spent (₱):"));
+    const spent = parseFloat(prompt("Enter amount spent (₱):"));
 
     if (isNaN(spent)) return;
 
@@ -78,13 +150,11 @@ function addPurchase() {
         alert("You cannot spend more than what you have left!");
     } else {
         remaining -= spent;
-        document.getElementById("output").textContent +=
-            `\n\nPurchase Recorded!\nYou now have ₱${remaining} left.`;
+        document.getElementById("log").textContent +=
+            `\nPurchase Recorded: ₱${spent}\nRemaining Money: ₱${remaining}`;
     }
 }
 </script>
-
-<button onclick="addPurchase()">Add Purchase</button>
 
 </body>
 </html>
