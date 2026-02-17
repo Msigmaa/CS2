@@ -1,113 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Load It Up 💸</title>
-    <style>
-        :root {
-            --primary-color: #4caf50;
-            --secondary-color: #2196f3;
-            --bg-color: #f5f5f5;
-            --card-bg: #fff;
-            --text-color: #333;
-            --dark-bg: #121212;
-            --dark-card: #1e1e1e;
-            --dark-text: #eee;
-        }
+<meta charset="UTF-8">
+<title>Money Tracker + Catalog 💸</title>
+<style>
+:root {
+    --primary-color: #4caf50;
+    --secondary-color: #2196f3;
+    --bg-color: #f5f5f5;
+    --card-bg: #fff;
+    --text-color: #333;
+    --dark-bg: #121212;
+    --dark-card: #1e1e1e;
+    --dark-text: #eee;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            background: var(--bg-color);
-            padding: 30px;
-            color: var(--text-color);
-            transition: background 0.3s, color 0.3s;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background: var(--bg-color);
+    padding: 20px;
+    color: var(--text-color);
+    transition: background 0.3s, color 0.3s;
+}
 
-        .dark-mode {
-            background: var(--dark-bg);
-            color: var(--dark-text);
-        }
+.dark-mode {
+    background: var(--dark-bg);
+    color: var(--dark-text);
+}
 
-        .container {
-            background: var(--card-bg);
-            padding: 20px;
-            max-width: 500px;
-            margin: auto;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            transition: background 0.3s;
-        }
+.container {
+    background: var(--card-bg);
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    transition: background 0.3s;
+}
 
-        .dark-mode .container {
-            background: var(--dark-card);
-        }
+.dark-mode .container {
+    background: var(--dark-card);
+}
 
-        input, select, button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
 
-        button {
-            cursor: pointer;
-            background: var(--primary-color);
-            color: #fff;
-            border: none;
-        }
+button {
+    cursor: pointer;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+}
 
-        button:hover {
-            opacity: 0.9;
-        }
+button:hover {
+    opacity: 0.9;
+}
 
-        .output {
-            margin-top: 20px;
-            white-space: pre-line;
-        }
+.output {
+    margin-top: 20px;
+    white-space: pre-line;
+}
 
-        .progress-bar {
-            background: #eee;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 10px;
-        }
+.progress-bar {
+    background: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+}
 
-        .progress {
-            height: 20px;
-            width: 0%;
-            background: var(--secondary-color);
-            transition: width 0.5s;
-        }
+.progress {
+    height: 20px;
+    width: 0%;
+    background: var(--secondary-color);
+    transition: width 0.5s;
+}
 
-        .dark-mode .progress-bar {
-            background: #333;
-        }
+.dark-mode .progress-bar {
+    background: #333;
+}
 
-        .dark-mode .progress {
-            background: var(--secondary-color);
-        }
+.dark-mode .progress {
+    background: var(--secondary-color);
+}
 
-        h2 {
-            text-align: center;
-        }
+h2 { text-align: center; }
 
-        .flex-row {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
+.flex-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
 
-        .flex-row button {
-            flex: 1;
-        }
-    </style>
+.flex-row button { flex: 1; }
+
+.catalog-entry {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+.catalog-entry button { flex: 0 0 auto; margin-left: 5px; }
+</style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Money Tracker 💸</h2>
+    <h2>Money Tracker + Catalog 💸</h2>
 
     <input type="text" id="username" placeholder="Enter your username">
     <input type="number" id="budget" placeholder="Enter your budget (₱)">
@@ -126,15 +132,21 @@
         <button onclick="generateSummary()">Monthly Summary</button>
     </div>
 
-    <button onclick="exportCSV()">Export CSV</button>
+    <hr>
+    <h3>Catalog</h3>
+    <input type="text" id="searchCatalog" placeholder="Search catalog..." oninput="displayCatalog()">
+    <button onclick="addCatalogItem()">Add Catalog Item</button>
+    <div id="catalogList"></div>
 </div>
 
 <script>
 let remaining = 0;
 let purchases = [];
+let catalog = [];
 let username = '';
 let savingsGoal = 0;
 
+// ----------- Tracker Functions ----------------
 function startTracker() {
     username = document.getElementById("username").value.trim();
     const budget = parseFloat(document.getElementById("budget").value);
@@ -148,31 +160,24 @@ function startTracker() {
 
     remaining = budget;
     purchases = [];
+    saveData();
     updateProgress();
     output.textContent = `Welcome, ${username}!\nYour budget is ₱${remaining}.\nSavings goal: ₱${savingsGoal}\nStart spending wisely!`;
 }
 
 function addPurchase() {
-    if (remaining <= 0) {
-        alert("You cannot spend anymore!!!");
-        return;
-    }
+    if (remaining <= 0) return alert("You cannot spend anymore!!!");
 
     const category = prompt("Enter category (Food, Transport, Shopping, etc.):").trim() || "Other";
     const spent = parseFloat(prompt("Enter amount spent (₱):"));
 
     if (isNaN(spent) || spent <= 0) return alert("Invalid amount!");
-
-    if (spent > remaining) {
-        alert("You cannot spend more than what you have left!");
-        return;
-    }
+    if (spent > remaining) return alert("You cannot spend more than what you have left!");
 
     remaining -= spent;
     purchases.push({ category, amount: spent, date: new Date().toLocaleDateString() });
     saveData();
     updateProgress();
-
     document.getElementById("output").textContent += `\n\nPurchase Recorded!\n${category}: ₱${spent}\nRemaining: ₱${remaining}`;
 }
 
@@ -181,35 +186,11 @@ function generateSummary() {
     
     let summary = "Monthly Summary:\n";
     const categoryTotals = {};
+    purchases.forEach(p => categoryTotals[p.category] = (categoryTotals[p.category] || 0) + p.amount);
 
-    purchases.forEach(p => {
-        categoryTotals[p.category] = (categoryTotals[p.category] || 0) + p.amount;
-    });
-
-    for (let cat in categoryTotals) {
-        summary += `${cat}: ₱${categoryTotals[cat]}\n`;
-    }
-
+    for (let cat in categoryTotals) summary += `${cat}: ₱${categoryTotals[cat]}\n`;
     summary += `\nTotal Spent: ₱${purchases.reduce((a,b)=>a+b.amount,0)}\nRemaining: ₱${remaining}\n`;
-
     document.getElementById("output").textContent = summary;
-}
-
-function saveData() {
-    const data = { remaining, purchases, username, savingsGoal };
-    localStorage.setItem('moneyTrackerData', JSON.stringify(data));
-}
-
-function loadData() {
-    const saved = JSON.parse(localStorage.getItem('moneyTrackerData'));
-    if (saved) {
-        remaining = saved.remaining;
-        purchases = saved.purchases;
-        username = saved.username;
-        savingsGoal = saved.savingsGoal;
-        updateProgress();
-        document.getElementById("output").textContent = `Welcome back, ${username}!\nRemaining: ₱${remaining}`;
-    }
 }
 
 function updateProgress() {
@@ -218,27 +199,85 @@ function updateProgress() {
         const saved = Math.max(0, (parseFloat(document.getElementById("budget").value || 0) - remaining));
         const percent = Math.min(100, (saved / savingsGoal) * 100);
         progressEl.style.width = percent + "%";
-    } else {
-        progressEl.style.width = "0%";
+    } else progressEl.style.width = "0%";
+}
+
+function saveData() {
+    const data = { remaining, purchases, catalog, username, savingsGoal };
+    localStorage.setItem('moneyTrackerData', JSON.stringify(data));
+}
+
+function loadData() {
+    const saved = JSON.parse(localStorage.getItem('moneyTrackerData'));
+    if (saved) {
+        remaining = saved.remaining;
+        purchases = saved.purchases;
+        catalog = saved.catalog || [];
+        username = saved.username;
+        savingsGoal = saved.savingsGoal;
+        updateProgress();
+        document.getElementById("output").textContent = `Welcome back, ${username}!\nRemaining: ₱${remaining}`;
+        displayCatalog();
     }
 }
 
-function exportCSV() {
-    if (!purchases.length) return alert("No purchases to export!");
-    let csv = "Category,Amount,Date\n";
-    purchases.forEach(p => {
-        csv += `${p.category},${p.amount},${p.date}\n`;
-    });
+// ----------- Catalog Functions ----------------
+function addCatalogItem() {
+    const name = prompt("Item name:");
+    const description = prompt("Description:");
+    const price = parseFloat(prompt("Price (₱):"));
+    if (!name || isNaN(price)) return alert("Invalid entry!");
 
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${username}_purchases.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
+    const id = Date.now(); // simple unique id
+    catalog.push({ id, name, description, price });
+    saveData();
+    displayCatalog();
 }
 
+function displayCatalog() {
+    const list = document.getElementById("catalogList");
+    const query = document.getElementById("searchCatalog").value.toLowerCase();
+    list.innerHTML = '';
+
+    catalog
+        .filter(item => item.name.toLowerCase().includes(query) || item.description.toLowerCase().includes(query))
+        .sort((a,b) => a.name.localeCompare(b.name))
+        .forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'catalog-entry';
+            div.innerHTML = `
+                <div>
+                    <strong>${item.name}</strong> - ₱${item.price}<br>
+                    <em>${item.description}</em>
+                </div>
+                <div>
+                    <button onclick="editCatalogItem(${item.id})">Edit</button>
+                    <button onclick="deleteCatalogItem(${item.id})">Delete</button>
+                </div>`;
+            list.appendChild(div);
+        });
+}
+
+function editCatalogItem(id) {
+    const item = catalog.find(i => i.id === id);
+    if (!item) return;
+    const name = prompt("Edit name:", item.name);
+    const description = prompt("Edit description:", item.description);
+    const price = parseFloat(prompt("Edit price (₱):", item.price));
+    if (!name || isNaN(price)) return alert("Invalid entry!");
+    item.name = name; item.description = description; item.price = price;
+    saveData();
+    displayCatalog();
+}
+
+function deleteCatalogItem(id) {
+    if (!confirm("Delete this item?")) return;
+    catalog = catalog.filter(i => i.id !== id);
+    saveData();
+    displayCatalog();
+}
+
+// ----------- Other Functions ----------------
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
 }
