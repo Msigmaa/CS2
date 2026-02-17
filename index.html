@@ -1,150 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Load It Up – Full Feature List</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #f4f6f8;
-        padding: 30px;
-    }
+    <meta charset="UTF-8">
+    <title>Money Tracker 💸</title>
+    <style>
+        :root {
+            --primary-color: #4caf50;
+            --secondary-color: #2196f3;
+            --bg-color: #f5f5f5;
+            --card-bg: #fff;
+            --text-color: #333;
+            --dark-bg: #121212;
+            --dark-card: #1e1e1e;
+            --dark-text: #eee;
+        }
 
-    .container {
-        max-width: 900px;
-        margin: auto;
-        background: #fff;
-        padding: 25px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--bg-color);
+            padding: 30px;
+            color: var(--text-color);
+            transition: background 0.3s, color 0.3s;
+        }
 
-    h1, h2 {
-        text-align: center;
-    }
+        .dark-mode {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
 
-    ul {
-        margin-left: 20px;
-    }
+        .container {
+            background: var(--card-bg);
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            transition: background 0.3s;
+        }
 
-    li {
-        margin-bottom: 5px;
-    }
+        .dark-mode .container {
+            background: var(--dark-card);
+        }
 
-    .version {
-        background: #f9f9f9;
-        padding: 15px;
-        border-left: 5px solid #3498db;
-        margin-bottom: 15px;
-        border-radius: 5px;
-    }
-</style>
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            cursor: pointer;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .output {
+            margin-top: 20px;
+            white-space: pre-line;
+        }
+
+        .progress-bar {
+            background: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress {
+            height: 20px;
+            width: 0%;
+            background: var(--secondary-color);
+            transition: width 0.5s;
+        }
+
+        .dark-mode .progress-bar {
+            background: #333;
+        }
+
+        .dark-mode .progress {
+            background: var(--secondary-color);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .flex-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .flex-row button {
+            flex: 1;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>📦 Load It Up – Full Feature List</h1>
+    <h2>Money Tracker 💸</h2>
 
-    <div class="version">
-        <h2>V1.0 – Initial Setup</h2>
-        <ul>
-            <li>Initial project proposal completed</li>
-            <li>Defined problem statement</li>
-            <li>Listed project objectives</li>
-            <li>Planned features outlined</li>
-            <li>Identified inputs and outputs</li>
-            <li>Created basic logic flow (pseudocode)</li>
-        </ul>
+    <input type="text" id="username" placeholder="Enter your username">
+    <input type="number" id="budget" placeholder="Enter your budget (₱)">
+    <input type="number" id="savingsGoal" placeholder="Set your savings goal (₱)">
+    <button onclick="startTracker()">Start</button>
+    <button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
+
+    <div class="output" id="output"></div>
+
+    <div class="progress-bar">
+        <div class="progress" id="savingsProgress"></div>
     </div>
 
-    <div class="version">
-        <h2>V1.1 – UI & Prototype</h2>
-        <ul>
-            <li>Basic UI wireframes completed</li>
-            <li>Offline queue prototype integrated</li>
-            <li>Initial local database (SQLite/JSON) implemented</li>
-            <li>Improved wording in README</li>
-            <li>Updated pseudocode formatting</li>
-            <li>Small fixes in category definitions</li>
-        </ul>
+    <div class="flex-row">
+        <button onclick="addPurchase()">Add Purchase</button>
+        <button onclick="generateSummary()">Monthly Summary</button>
     </div>
 
-    <div class="version">
-        <h2>V1.1.1 & V1.1.2 – Minor UI & DB Fixes</h2>
-        <ul>
-            <li>Fixed minor UI spacing issues</li>
-            <li>Improved offline error prompts</li>
-            <li>Adjusted layout of transaction input screen</li>
-            <li>Enhanced local DB error handling</li>
-        </ul>
-    </div>
-
-    <div class="version">
-        <h2>V2.0 & Minor Patches – Transaction Logger</h2>
-        <ul>
-            <li>Fully functional transaction logger</li>
-            <li>Category filters for viewing expenses</li>
-            <li>Monthly summary generator</li>
-            <li>Faster local storage read/write</li>
-            <li>Better input validation</li>
-            <li>Updated onboarding tips</li>
-            <li>Fixed a bug in monthly totals</li>
-            <li>Updated icons for expenses</li>
-            <li>Improved loading speeds</li>
-            <li>Updated color theme for better visibility</li>
-        </ul>
-    </div>
-
-    <div class="version">
-        <h2>V3.0 & Minor Patches – Savings & Exports</h2>
-        <ul>
-            <li>Savings goal tracker with progress bar</li>
-            <li>PDF/CSV export feature</li>
-            <li>Auto-sync when online enabled</li>
-            <li>Better chart animations</li>
-            <li>Charts improved for readability</li>
-            <li>Improved summary screen layout</li>
-            <li>Cleaned up unused code</li>
-            <li>Fixed sync retry issues</li>
-            <li>Updated PDF formatting</li>
-            <li>Smoother chart loading behavior</li>
-            <li>Improved error messages</li>
-        </ul>
-    </div>
-
-    <div class="version">
-        <h2>V4.0 & Minor Patches – Dashboard & UX</h2>
-        <ul>
-            <li>Full dashboard redesign</li>
-            <li>Weekly + monthly analytics</li>
-            <li>Dark mode</li>
-            <li>Updated loading animations</li>
-            <li>Improved accessibility contrast</li>
-            <li>General UI/UX fixes</li>
-            <li>Fixed dark mode inconsistencies</li>
-            <li>Optimized analytics rendering</li>
-            <li>Corrected display bug in weekly charts</li>
-            <li>Small refinements in dashboard text</li>
-        </ul>
-    </div>
-
-    <div class="version">
-        <h2>V5.0 & Minor Patches – Catalog System</h2>
-        <ul>
-            <li>Customizable search catalog feature introduced</li>
-            <li>SQL-based catalog system implemented</li>
-            <li>Full CRUD operations (Create, Read, Update, Delete) for catalog management</li>
-            <li>Advanced search, filter, and sorting functionality</li>
-            <li>Configurable catalog fields for flexible data organization</li>
-            <li>Fixed bugs related to search query handling and customization</li>
-            <li>Improved database performance and indexing</li>
-            <li>Resolved minor UI inconsistencies in catalog view</li>
-            <li>General bug fixes and stability improvements</li>
-            <li>Cleaned up ReadME</li>
-            <li>Resolved minor issues with the SQL-based catalog system</li>
-        </ul>
-    </div>
-
+    <button onclick="exportCSV()">Export CSV</button>
 </div>
+
+<script>
+let remaining = 0;
+let purchases = [];
+let username = '';
+let savingsGoal = 0;
+
+function startTracker() {
+    username = document.getElementById("username").value.trim();
+    const budget = parseFloat(document.getElementById("budget").value);
+    savingsGoal = parseFloat(document.getElementById("savingsGoal").value || 0);
+    const output = document.getElementById("output");
+
+    if (!username || isNaN(budget)) {
+        output.textContent = "Bro fill everything up properly 😭";
+        return;
+    }
+
+    remaining = budget;
+    purchases = [];
+    updateProgress();
+    output.textContent = `Welcome, ${username}!\nYour budget is ₱${remaining}.\nSavings goal: ₱${savingsGoal}\nStart spending wisely!`;
+}
+
+function addPurchase() {
+    if (remaining <= 0) {
+        alert("You cannot spend anymore!!!");
+        return;
+    }
+
+    const category = prompt("Enter category (Food, Transport, Shopping, etc.):").trim() || "Other";
+    const spent = parseFloat(prompt("Enter amount spent (₱):"));
+
+    if (isNaN(spent) || spent <= 0) return alert("Invalid amount!");
+
+    if (spent > remaining) {
+        alert("You cannot spend more than what you have left!");
+        return;
+    }
+
+    remaining -= spent;
+    purchases.push({ category, amount: spent, date: new Date().toLocaleDateString() });
+    saveData();
+    updateProgress();
+
+    document.getElementById("output").textContent += `\n\nPurchase Recorded!\n${category}: ₱${spent}\nRemaining: ₱${remaining}`;
+}
+
+function generateSummary() {
+    if (!purchases.length) return alert("No purchases yet!");
+    
+    let summary = "Monthly Summary:\n";
+    const categoryTotals = {};
+
+    purchases.forEach(p => {
+        categoryTotals[p.category] = (categoryTotals[p.category] || 0) + p.amount;
+    });
+
+    for (let cat in categoryTotals) {
+        summary += `${cat}: ₱${categoryTotals[cat]}\n`;
+    }
+
+    summary += `\nTotal Spent: ₱${purchases.reduce((a,b)=>a+b.amount,0)}\nRemaining: ₱${remaining}\n`;
+
+    document.getElementById("output").textContent = summary;
+}
+
+function saveData() {
+    const data = { remaining, purchases, username, savingsGoal };
+    localStorage.setItem('moneyTrackerData', JSON.stringify(data));
+}
+
+function loadData() {
+    const saved = JSON.parse(localStorage.getItem('moneyTrackerData'));
+    if (saved) {
+        remaining = saved.remaining;
+        purchases = saved.purchases;
+        username = saved.username;
+        savingsGoal = saved.savingsGoal;
+        updateProgress();
+        document.getElementById("output").textContent = `Welcome back, ${username}!\nRemaining: ₱${remaining}`;
+    }
+}
+
+function updateProgress() {
+    const progressEl = document.getElementById("savingsProgress");
+    if (savingsGoal > 0) {
+        const saved = Math.max(0, (parseFloat(document.getElementById("budget").value || 0) - remaining));
+        const percent = Math.min(100, (saved / savingsGoal) * 100);
+        progressEl.style.width = percent + "%";
+    } else {
+        progressEl.style.width = "0%";
+    }
+}
+
+function exportCSV() {
+    if (!purchases.length) return alert("No purchases to export!");
+    let csv = "Category,Amount,Date\n";
+    purchases.forEach(p => {
+        csv += `${p.category},${p.amount},${p.date}\n`;
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${username}_purchases.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+}
+
+// Load saved data on page load
+window.onload = loadData;
+</script>
 </body>
 </html>
