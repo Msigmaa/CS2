@@ -1,0 +1,31 @@
+Name = input("Please Enter Your Desired Username: ")
+print(f"Welcome, {Name}!")
+print("Let's Set Up Your Maximum Expenditure For The Month!")
+
+Budget = float(input("Please Enter Your Maximum Expenditure: ₱"))
+print(f"Thank You For Setting Up Your Account. You Currently Have ₱{Budget} Left To Spend!")
+
+def Money_Tracker():
+    Remaining = Budget
+
+    while Remaining > 0:
+        print(f"\nRemaining Money: ₱{Remaining}")
+
+        True_False = input("Would You Like To Add A Purchase You Recently Made? (Y/N): ")
+
+        if True_False == "Y":
+            Tracker = float(input("Please Enter The Amount You Spent: ₱"))
+
+            if Tracker > Remaining:
+                print("You cannot spend more than what you have left!")
+            else:
+                Remaining -= Tracker
+                print(f"Purchase Recorded! You now have ₱{Remaining} left.")
+        else:
+            print("Tracking stopped. Have a nice day!")
+            break
+
+    if Remaining <= 0:
+        print("You Cannot Spend Anymore!!!")
+
+Money_Tracker()
