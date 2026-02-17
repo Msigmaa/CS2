@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Load It Up – Money Tracker</title>
-
+<title>Load It Up – Full Feature List</title>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -12,7 +11,7 @@
     }
 
     .container {
-        max-width: 800px;
+        max-width: 900px;
         margin: auto;
         background: #fff;
         padding: 25px;
@@ -24,22 +23,12 @@
         text-align: center;
     }
 
-    input, button {
-        width: 100%;
-        padding: 10px;
-        margin-top: 10px;
+    ul {
+        margin-left: 20px;
     }
 
-    .log {
-        margin-top: 20px;
-        background: #ecf0f1;
-        padding: 15px;
-        border-radius: 8px;
-        white-space: pre-line;
-    }
-
-    .features {
-        margin-top: 30px;
+    li {
+        margin-bottom: 5px;
     }
 
     .version {
@@ -51,110 +40,111 @@
     }
 </style>
 </head>
-
 <body>
 
 <div class="container">
-    <h1>💸 Load It Up</h1>
-    <p style="text-align:center;">Personal Money Tracker</p>
+    <h1>📦 Load It Up – Full Feature List</h1>
 
-    <!-- CORE FUNCTIONALITY (V1.0 – V2.0) -->
-    <input type="text" id="username" placeholder="Enter username">
-    <input type="number" id="budget" placeholder="Enter monthly budget (₱)">
-    <button onclick="start()">Start Tracking</button>
-    <button onclick="addExpense()">Add Purchase</button>
-
-    <div class="log" id="log">Waiting for input…</div>
-
-    <!-- FEATURES BASED ON CHANGELOG -->
-    <div class="features">
-        <h2>📌 Feature Updates by Version</h2>
-
-        <div class="version">
-            <strong>V1.0 – Core Setup</strong>
-            <ul>
-                <li>User account setup (username)</li>
-                <li>Monthly budget input</li>
-                <li>Basic spending logic</li>
-            </ul>
-        </div>
-
-        <div class="version">
-            <strong>V2.0 – Transaction Tracking</strong>
-            <ul>
-                <li>Expense logging</li>
-                <li>Remaining balance calculation</li>
-                <li>Input validation (cannot overspend)</li>
-            </ul>
-        </div>
-
-        <div class="version">
-            <strong>V3.0 – Summary & Progress</strong>
-            <ul>
-                <li>Real-time remaining balance display</li>
-                <li>Improved messages and feedback</li>
-            </ul>
-        </div>
-
-        <div class="version">
-            <strong>V4.0 – UI Improvements</strong>
-            <ul>
-                <li>Clean dashboard-style layout</li>
-                <li>Improved readability</li>
-            </ul>
-        </div>
-
-        <div class="version">
-            <strong>V5.0 – System Expansion (Conceptual)</strong>
-            <ul>
-                <li>Scalable structure for database integration</li>
-                <li>Prepared for catalog, filters, and CRUD operations</li>
-            </ul>
-        </div>
+    <div class="version">
+        <h2>V1.0 – Initial Setup</h2>
+        <ul>
+            <li>Initial project proposal completed</li>
+            <li>Defined problem statement</li>
+            <li>Listed project objectives</li>
+            <li>Planned features outlined</li>
+            <li>Identified inputs and outputs</li>
+            <li>Created basic logic flow (pseudocode)</li>
+        </ul>
     </div>
+
+    <div class="version">
+        <h2>V1.1 – UI & Prototype</h2>
+        <ul>
+            <li>Basic UI wireframes completed</li>
+            <li>Offline queue prototype integrated</li>
+            <li>Initial local database (SQLite/JSON) implemented</li>
+            <li>Improved wording in README</li>
+            <li>Updated pseudocode formatting</li>
+            <li>Small fixes in category definitions</li>
+        </ul>
+    </div>
+
+    <div class="version">
+        <h2>V1.1.1 & V1.1.2 – Minor UI & DB Fixes</h2>
+        <ul>
+            <li>Fixed minor UI spacing issues</li>
+            <li>Improved offline error prompts</li>
+            <li>Adjusted layout of transaction input screen</li>
+            <li>Enhanced local DB error handling</li>
+        </ul>
+    </div>
+
+    <div class="version">
+        <h2>V2.0 & Minor Patches – Transaction Logger</h2>
+        <ul>
+            <li>Fully functional transaction logger</li>
+            <li>Category filters for viewing expenses</li>
+            <li>Monthly summary generator</li>
+            <li>Faster local storage read/write</li>
+            <li>Better input validation</li>
+            <li>Updated onboarding tips</li>
+            <li>Fixed a bug in monthly totals</li>
+            <li>Updated icons for expenses</li>
+            <li>Improved loading speeds</li>
+            <li>Updated color theme for better visibility</li>
+        </ul>
+    </div>
+
+    <div class="version">
+        <h2>V3.0 & Minor Patches – Savings & Exports</h2>
+        <ul>
+            <li>Savings goal tracker with progress bar</li>
+            <li>PDF/CSV export feature</li>
+            <li>Auto-sync when online enabled</li>
+            <li>Better chart animations</li>
+            <li>Charts improved for readability</li>
+            <li>Improved summary screen layout</li>
+            <li>Cleaned up unused code</li>
+            <li>Fixed sync retry issues</li>
+            <li>Updated PDF formatting</li>
+            <li>Smoother chart loading behavior</li>
+            <li>Improved error messages</li>
+        </ul>
+    </div>
+
+    <div class="version">
+        <h2>V4.0 & Minor Patches – Dashboard & UX</h2>
+        <ul>
+            <li>Full dashboard redesign</li>
+            <li>Weekly + monthly analytics</li>
+            <li>Dark mode</li>
+            <li>Updated loading animations</li>
+            <li>Improved accessibility contrast</li>
+            <li>General UI/UX fixes</li>
+            <li>Fixed dark mode inconsistencies</li>
+            <li>Optimized analytics rendering</li>
+            <li>Corrected display bug in weekly charts</li>
+            <li>Small refinements in dashboard text</li>
+        </ul>
+    </div>
+
+    <div class="version">
+        <h2>V5.0 & Minor Patches – Catalog System</h2>
+        <ul>
+            <li>Customizable search catalog feature introduced</li>
+            <li>SQL-based catalog system implemented</li>
+            <li>Full CRUD operations (Create, Read, Update, Delete) for catalog management</li>
+            <li>Advanced search, filter, and sorting functionality</li>
+            <li>Configurable catalog fields for flexible data organization</li>
+            <li>Fixed bugs related to search query handling and customization</li>
+            <li>Improved database performance and indexing</li>
+            <li>Resolved minor UI inconsistencies in catalog view</li>
+            <li>General bug fixes and stability improvements</li>
+            <li>Cleaned up ReadME</li>
+            <li>Resolved minor issues with the SQL-based catalog system</li>
+        </ul>
+    </div>
+
 </div>
-
-<script>
-let remaining = 0;
-let user = "";
-
-function start() {
-    user = document.getElementById("username").value;
-    const budget = parseFloat(document.getElementById("budget").value);
-    const log = document.getElementById("log");
-
-    if (!user || isNaN(budget)) {
-        log.textContent = "Please enter a valid username and budget.";
-        return;
-    }
-
-    remaining = budget;
-    log.textContent =
-        `Welcome, ${user}!\n` +
-        `Monthly Budget Set: ₱${budget}\n` +
-        `Remaining Money: ₱${remaining}`;
-}
-
-function addExpense() {
-    if (remaining <= 0) {
-        document.getElementById("log").textContent +=
-            `\nYou cannot spend anymore!!!`;
-        return;
-    }
-
-    const spent = parseFloat(prompt("Enter amount spent (₱):"));
-
-    if (isNaN(spent)) return;
-
-    if (spent > remaining) {
-        alert("You cannot spend more than what you have left!");
-    } else {
-        remaining -= spent;
-        document.getElementById("log").textContent +=
-            `\nPurchase Recorded: ₱${spent}\nRemaining Money: ₱${remaining}`;
-    }
-}
-</script>
-
 </body>
 </html>
