@@ -1,31 +1,90 @@
-Name = input("Please Enter Your Desired Username: ")
-print(f"Welcome, {Name}!")
-print("Let's Set Up Your Maximum Expenditure For The Month!")
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Money Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 40px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button {
+            cursor: pointer;
+        }
+        .output {
+            margin-top: 15px;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
 
-Budget = float(input("Please Enter Your Maximum Expenditure: ₱"))
-print(f"Thank You For Setting Up Your Account. You Currently Have ₱{Budget} Left To Spend!")
+<div class="container">
+    <h2>Money Tracker 💸</h2>
 
-def Money_Tracker():
-    Remaining = Budget
+    <input type="text" id="username" placeholder="Enter your username">
+    <input type="number" id="budget" placeholder="Enter your budget (₱)">
+    <button onclick="startTracker()">Start</button>
 
-    while Remaining > 0:
-        print(f"\nRemaining Money: ₱{Remaining}")
+    <div class="output" id="output"></div>
+</div>
 
-        True_False = input("Would You Like To Add A Purchase You Recently Made? (Y/N): ")
+<script>
+let remaining = 0;
 
-        if True_False == "Y":
-            Tracker = float(input("Please Enter The Amount You Spent: ₱"))
+function startTracker() {
+    const name = document.getElementById("username").value;
+    const budget = parseFloat(document.getElementById("budget").value);
+    const output = document.getElementById("output");
 
-            if Tracker > Remaining:
-                print("You cannot spend more than what you have left!")
-            else:
-                Remaining -= Tracker
-                print(f"Purchase Recorded! You now have ₱{Remaining} left.")
-        else:
-            print("Tracking stopped. Have a nice day!")
-            break
+    if (!name || isNaN(budget)) {
+        output.textContent = "Bro fill everything up properly 😭";
+        return;
+    }
 
-    if Remaining <= 0:
-        print("You Cannot Spend Anymore!!!")
+    remaining = budget;
+    output.textContent =
+        `Welcome, ${name}!\n` +
+        `Let's Set Up Your Maximum Expenditure For The Month!\n\n` +
+        `Thank You For Setting Up Your Account.\n` +
+        `You Currently Have ₱${remaining} Left To Spend!`;
+}
 
-Money_Tracker()
+function addPurchase() {
+    if (remaining <= 0) {
+        alert("You cannot spend anymore!!!");
+        return;
+    }
+
+    const spent = parseFloat(prompt("Enter the amount you spent (₱):"));
+
+    if (isNaN(spent)) return;
+
+    if (spent > remaining) {
+        alert("You cannot spend more than what you have left!");
+    } else {
+        remaining -= spent;
+        document.getElementById("output").textContent +=
+            `\n\nPurchase Recorded!\nYou now have ₱${remaining} left.`;
+    }
+}
+</script>
+
+<button onclick="addPurchase()">Add Purchase</button>
+
+</body>
+</html>
