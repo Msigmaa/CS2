@@ -2,17 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Load it Up </title>
+<title>Money Tracker + Category Catalog 💸</title>
 <style>
 :root {
-    --primary-color: #4caf50;
-    --secondary-color: #2196f3;
-    --bg-color: #f5f5f5;
-    --card-bg: #fff;
-    --text-color: #333;
-    --dark-bg: #121212;
-    --dark-card: #1e1e1e;
-    --dark-text: #eee;
+    --primary-color: #708238;  /* Olive Green */
+    --secondary-color: #d4d4d4; /* Neon White for highlights */
+    --bg-color: #121212;        /* Dark background for contrast */
+    --card-bg: #1a1a1a;         /* Dark card background */
+    --text-color: #ffffff;      /* White text */
+    --accent-color: #d4d4d4;    /* Neon white for progress bar or highlights */
 }
 
 body {
@@ -23,23 +21,14 @@ body {
     transition: background 0.3s, color 0.3s;
 }
 
-.dark-mode {
-    background: var(--dark-bg);
-    color: var(--dark-text);
-}
-
 .container {
     background: var(--card-bg);
     padding: 20px;
     max-width: 600px;
     margin: auto;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    transition: background 0.3s;
-}
-
-.dark-mode .container {
-    background: var(--dark-card);
+    box-shadow: 0 0 15px var(--accent-color);
+    transition: background 0.3s, box-shadow 0.3s;
 }
 
 input, select, button {
@@ -47,28 +36,45 @@ input, select, button {
     padding: 10px;
     margin-top: 10px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--primary-color);
+    background: var(--card-bg);
+    color: var(--text-color);
     box-sizing: border-box;
 }
 
 button {
     cursor: pointer;
     background: var(--primary-color);
-    color: #fff;
+    color: var(--text-color);
     border: none;
+    box-shadow: 0 0 10px var(--primary-color);
+    transition: box-shadow 0.2s;
 }
 
 button:hover {
-    opacity: 0.9;
+    box-shadow: 0 0 20px var(--primary-color);
 }
 
 .output {
     margin-top: 20px;
     white-space: pre-line;
+    border-left: 3px solid var(--primary-color);
+    padding-left: 10px;
+}
+
+.catalog-entry {
+    margin-top: 5px;
+    padding: 5px;
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.catalog-entry strong {
+    display: block;
+    color: var(--secondary-color);
 }
 
 .progress-bar {
-    background: #eee;
+    background: #333;
     border-radius: 10px;
     overflow: hidden;
     margin-top: 10px;
@@ -77,19 +83,11 @@ button:hover {
 .progress {
     height: 20px;
     width: 0%;
-    background: var(--secondary-color);
+    background: var(--primary-color);
     transition: width 0.5s;
 }
 
-.dark-mode .progress-bar {
-    background: #333;
-}
-
-.dark-mode .progress {
-    background: var(--secondary-color);
-}
-
-h2 { text-align: center; }
+h2, h3 { text-align: center; }
 
 .flex-row {
     display: flex;
@@ -98,59 +96,43 @@ h2 { text-align: center; }
 }
 
 .flex-row button { flex: 1; }
-
-.catalog-entry {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
-    padding: 5px;
-    border-bottom: 1px solid #ccc;
-}
-
-.catalog-entry button { flex: 0 0 auto; margin-left: 5px; }
 </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Money Tracker + Catalog 💸</h2>
+<h2>Money Tracker + Category Catalog 💸</h2>
 
-    <input type="text" id="username" placeholder="Enter your username">
-    <input type="number" id="budget" placeholder="Enter your budget (₱)">
-    <input type="number" id="savingsGoal" placeholder="Set your savings goal (₱)">
-    <button onclick="startTracker()">Start</button>
-    <button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
+<input type="text" id="username" placeholder="Enter your username">
+<input type="number" id="budget" placeholder="Enter your budget (₱)">
+<button onclick="startTracker()">Start</button>
 
-    <div class="output" id="output"></div>
+<div class="output" id="output"></div>
 
-    <div class="progress-bar">
-        <div class="progress" id="savingsProgress"></div>
-    </div>
+<div class="progress-bar">
+    <div class="progress" id="savingsProgress"></div>
+</div>
 
-    <div class="flex-row">
-        <button onclick="addPurchase()">Add Purchase</button>
-        <button onclick="generateSummary()">Monthly Summary</button>
-    </div>
+<div class="flex-row">
+    <button onclick="addPurchase()">Add Purchase</button>
+    <button onclick="generateSummary()">Monthly Summary</button>
+</div>
 
-    <hr>
-    <h3>Catalog</h3>
-    <input type="text" id="searchCatalog" placeholder="Search catalog..." oninput="displayCatalog()">
-    <button onclick="addCatalogItem()">Add Catalog Item</button>
-    <div id="catalogList"></div>
+<hr>
+<h3>Category Search</h3>
+<input type="text" id="searchCategory" placeholder="Search category..." oninput="displayCatalog()">
+<div id="catalogList"></div>
 </div>
 
 <script>
 let remaining = 0;
 let purchases = [];
-let catalog = [];
 let username = '';
-let savingsGoal = 0;
 
 // ----------- Tracker Functions ----------------
 function startTracker() {
     username = document.getElementById("username").value.trim();
     const budget = parseFloat(document.getElementById("budget").value);
-    savingsGoal = parseFloat(document.getElementById("savingsGoal").value || 0);
     const output = document.getElementById("output");
 
     if (!username || isNaN(budget)) {
@@ -162,23 +144,22 @@ function startTracker() {
     purchases = [];
     saveData();
     updateProgress();
-    output.textContent = `Welcome, ${username}!\nYour budget is ₱${remaining}.\nSavings goal: ₱${savingsGoal}\nStart spending wisely!`;
+    output.textContent = `Welcome, ${username}!\nYour budget is ₱${remaining}\nStart spending wisely!`;
 }
 
 function addPurchase() {
     if (remaining <= 0) return alert("You cannot spend anymore!!!");
 
-    const category = prompt("Enter category (Food, Transport, Shopping, etc.):").trim() || "Other";
+    const category = prompt("Enter category (Food, Transport, Shopping, etc.):").trim().toUpperCase() || "OTHER";
     const spent = parseFloat(prompt("Enter amount spent (₱):"));
-
     if (isNaN(spent) || spent <= 0) return alert("Invalid amount!");
     if (spent > remaining) return alert("You cannot spend more than what you have left!");
 
     remaining -= spent;
     purchases.push({ category, amount: spent, date: new Date().toLocaleDateString() });
     saveData();
-    updateProgress();
-    document.getElementById("output").textContent += `\n\nPurchase Recorded!\n${category}: ₱${spent}\nRemaining: ₱${remaining}`;
+    displayCatalog();
+    document.getElementById("output").textContent += `\nPurchase Recorded: ${category}, ₱${spent}. Remaining ₱${remaining}`;
 }
 
 function generateSummary() {
@@ -195,15 +176,40 @@ function generateSummary() {
 
 function updateProgress() {
     const progressEl = document.getElementById("savingsProgress");
-    if (savingsGoal > 0) {
-        const saved = Math.max(0, (parseFloat(document.getElementById("budget").value || 0) - remaining));
-        const percent = Math.min(100, (saved / savingsGoal) * 100);
+    if (parseFloat(document.getElementById("budget").value || 0) > 0) {
+        const saved = Math.max(0, parseFloat(document.getElementById("budget").value) - remaining);
+        const percent = Math.min(100, (saved / parseFloat(document.getElementById("budget").value)) * 100);
         progressEl.style.width = percent + "%";
     } else progressEl.style.width = "0%";
 }
 
+// ----------- Category Catalog Functions ----------------
+function displayCatalog() {
+    const list = document.getElementById("catalogList");
+    const query = document.getElementById("searchCategory").value.trim().toUpperCase();
+    list.innerHTML = '';
+
+    if (!purchases.length) return list.textContent = "No purchases yet!";
+
+    const categoryMap = {};
+    purchases.forEach(p => {
+        if (!categoryMap[p.category]) categoryMap[p.category] = [];
+        categoryMap[p.category].push(p);
+    });
+
+    Object.keys(categoryMap).filter(cat => cat.includes(query)).forEach(cat => {
+        const total = categoryMap[cat].reduce((a,b)=>a+b.amount,0);
+        const div = document.createElement('div');
+        div.className = 'catalog-entry';
+        div.innerHTML = `<strong>${cat} - Total: ₱${total}</strong>` +
+                        categoryMap[cat].map(p => `₱${p.amount} on ${p.date}`).join('<br>');
+        list.appendChild(div);
+    });
+}
+
+// ----------- Storage ----------------
 function saveData() {
-    const data = { remaining, purchases, catalog, username, savingsGoal };
+    const data = { remaining, purchases, username };
     localStorage.setItem('moneyTrackerData', JSON.stringify(data));
 }
 
@@ -212,77 +218,12 @@ function loadData() {
     if (saved) {
         remaining = saved.remaining;
         purchases = saved.purchases;
-        catalog = saved.catalog || [];
         username = saved.username;
-        savingsGoal = saved.savingsGoal;
-        updateProgress();
-        document.getElementById("output").textContent = `Welcome back, ${username}!\nRemaining: ₱${remaining}`;
+        document.getElementById("output").textContent = `Welcome back, ${username}! Remaining ₱${remaining}`;
         displayCatalog();
     }
 }
 
-// ----------- Catalog Functions ----------------
-function addCatalogItem() {
-    const name = prompt("Item name:");
-    const description = prompt("Description:");
-    const price = parseFloat(prompt("Price (₱):"));
-    if (!name || isNaN(price)) return alert("Invalid entry!");
-
-    const id = Date.now(); // simple unique id
-    catalog.push({ id, name, description, price });
-    saveData();
-    displayCatalog();
-}
-
-function displayCatalog() {
-    const list = document.getElementById("catalogList");
-    const query = document.getElementById("searchCatalog").value.toLowerCase();
-    list.innerHTML = '';
-
-    catalog
-        .filter(item => item.name.toLowerCase().includes(query) || item.description.toLowerCase().includes(query))
-        .sort((a,b) => a.name.localeCompare(b.name))
-        .forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'catalog-entry';
-            div.innerHTML = `
-                <div>
-                    <strong>${item.name}</strong> - ₱${item.price}<br>
-                    <em>${item.description}</em>
-                </div>
-                <div>
-                    <button onclick="editCatalogItem(${item.id})">Edit</button>
-                    <button onclick="deleteCatalogItem(${item.id})">Delete</button>
-                </div>`;
-            list.appendChild(div);
-        });
-}
-
-function editCatalogItem(id) {
-    const item = catalog.find(i => i.id === id);
-    if (!item) return;
-    const name = prompt("Edit name:", item.name);
-    const description = prompt("Edit description:", item.description);
-    const price = parseFloat(prompt("Edit price (₱):", item.price));
-    if (!name || isNaN(price)) return alert("Invalid entry!");
-    item.name = name; item.description = description; item.price = price;
-    saveData();
-    displayCatalog();
-}
-
-function deleteCatalogItem(id) {
-    if (!confirm("Delete this item?")) return;
-    catalog = catalog.filter(i => i.id !== id);
-    saveData();
-    displayCatalog();
-}
-
-// ----------- Other Functions ----------------
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-}
-
-// Load saved data on page load
 window.onload = loadData;
 </script>
 </body>
